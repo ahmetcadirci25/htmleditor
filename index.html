@@ -26,8 +26,25 @@ var editboxHTML =
 '<\/body>' +
 '<\/html>';
 
-var defaultStuff = '<h3>Gerçek zamanlı HTML editöre hoş geldiniz!<\/h3>\n' +
-'<p>Yukarıdaki kutucuğa HTML yazın ve aşağıdaki çerçevede sihirli bir şekilde görüntüleyin.<\/p>';
+var defaultStuff = '<!doctype html>\n'+
+'<html lang="tr">\n'+
+'  <head>\n'+
+'    <meta charset="utf-8">\n'+
+'    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">\n'+
+' \n'+
+'    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">\n'+
+' \n'+
+'    <title>Gerçek zamanlı HTML editöre hoş geldiniz!<\/title>\n'+
+'  <\/head>\n'+
+'  <body>\n'+
+'    <h1>Gerçek zamanlı HTML editöre hoş geldiniz!<\/h1>\n'+
+'    <p>Yukarıdaki kutucuğa HTML yazın ve aşağıdaki çerçevede sihirli bir şekilde görüntüleyin.<\/p>\n'+
+' \n'+
+'    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"><\/script>\n'+
+'    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"><\/script>\n'+
+'    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"><\/script>\n'+
+'  <\/body>\n'+
+'<\/html>';
 
 // I don't want this stuff to appear in the box at the top because I feel it's likely to be distracting.
 var extraStuff = '<div style="position:absolute; margin:.3em; bottom:0em; right:0em;"><!--<small>\n  Created by <a href="http://www.squarefree.com/" target="_top">Jesse Ruderman<\/a> and orginal by <a href="https://htmledit.squarefree.com/" target="_top">HTML Edit<\/a>.\n<\/small>--><\/div>';
