@@ -1,100 +1,99 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>Gerçek Zamanlı HTML Editör</title>
+    <meta name="description" content="Gerçek zamanlı HTML editöre hoş geldiniz! Yukarıdaki kutucuğa HTML yazın ve aşağıdaki çerçevede sihirli bir şekilde görüntüleyin.">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script type="text/javascript">
+    var editboxHTML =
+        '<html class="expand close">' +
+        '<head>' +
+        '<style type="text/css">' +
+        '.expand { width: 100%; height: 100%; }' +
+        '.close { border: none; margin: 0px; padding: 0px; }' +
+        'html,body { overflow: hidden; }' +
+        '<\/style>' +
+        '<\/head>' +
+        '<body class="expand close" onload="document.f.ta.focus(); document.f.ta.select();">' +
+        '<form class="expand close" name="f">' +
+        '<textarea class="expand close" style="background: #def;" name="ta" wrap="hard" spellcheck="false">' +
+        '<\/textarea>' +
+        '<\/form>' +
+        '<\/body>' +
+        '<\/html>';
 
-<title>Gerçek Zamanlı HTML Editör</title>
-<meta name="description" content="Gerçek zamanlı HTML editöre hoş geldiniz! Yukarıdaki kutucuğa HTML yazın ve aşağıdaki çerçevede sihirli bir şekilde görüntüleyin.">
-  
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    var defaultStuff = '<!doctype html>\n' +
+        '<html lang="tr">\n' +
+        '  <head>\n' +
+        '    <meta charset="utf-8">\n' +
+        '    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">\n' +
+        ' \n' +
+        '    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">\n' +
+        ' \n' +
+        '    <title>Gerçek zamanlı HTML editöre hoş geldiniz!<\/title>\n' +
+        '  <\/head>\n' +
+        '  <body>\n' +
+        '    <h1>Gerçek zamanlı HTML editöre hoş geldiniz!<\/h1>\n' +
+        '    <p>Yukarıdaki kutucuğa HTML yazın ve aşağıdaki çerçevede sihirli bir şekilde görüntüleyin.<\/p>\n' +
+        ' \n' +
+        '    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"><\/script>\n' +
+        '    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"><\/script>\n' +
+        '    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"><\/script>\n' +
+        '  <\/body>\n' +
+        '<\/html>';
 
-<script type="text/javascript">
-  
-var editboxHTML = 
-'<html class="expand close">' +
-'<head>' +
-'<style type="text/css">' +
-'.expand { width: 100%; height: 100%; }' +
-'.close { border: none; margin: 0px; padding: 0px; }' +
-'html,body { overflow: hidden; }' +
-'<\/style>' +
-'<\/head>' +
-'<body class="expand close" onload="document.f.ta.focus(); document.f.ta.select();">' +
-'<form class="expand close" name="f">' +
-'<textarea class="expand close" style="background: #def;" name="ta" wrap="hard" spellcheck="false">' +
-'<\/textarea>' +
-'<\/form>' +
-'<\/body>' +
-'<\/html>';
+    // I don't want this stuff to appear in the box at the top because I feel it's likely to be distracting.
+    var extraStuff = '<div style="position:absolute; margin:.3em; bottom:0em; right:0em;"><!--<small>\n  Created by <a href="http://www.squarefree.com/" target="_top">Jesse Ruderman<\/a> and orginal by <a href="https://htmledit.squarefree.com/" target="_top">HTML Edit<\/a>.\n<\/small>--><\/div>';
 
-var defaultStuff = '<!doctype html>\n'+
-'<html lang="tr">\n'+
-'  <head>\n'+
-'    <meta charset="utf-8">\n'+
-'    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">\n'+
-' \n'+
-'    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">\n'+
-' \n'+
-'    <title>Gerçek zamanlı HTML editöre hoş geldiniz!<\/title>\n'+
-'  <\/head>\n'+
-'  <body>\n'+
-'    <h1>Gerçek zamanlı HTML editöre hoş geldiniz!<\/h1>\n'+
-'    <p>Yukarıdaki kutucuğa HTML yazın ve aşağıdaki çerçevede sihirli bir şekilde görüntüleyin.<\/p>\n'+
-' \n'+
-'    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"><\/script>\n'+
-'    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"><\/script>\n'+
-'    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"><\/script>\n'+
-'  <\/body>\n'+
-'<\/html>';
+    var old = '';
 
-// I don't want this stuff to appear in the box at the top because I feel it's likely to be distracting.
-var extraStuff = '<div style="position:absolute; margin:.3em; bottom:0em; right:0em;"><!--<small>\n  Created by <a href="http://www.squarefree.com/" target="_top">Jesse Ruderman<\/a> and orginal by <a href="https://htmledit.squarefree.com/" target="_top">HTML Edit<\/a>.\n<\/small>--><\/div>';
+    function init() {
+        window.editbox.document.write(editboxHTML);
+        window.editbox.document.close();
+        window.editbox.document.f.ta.value = defaultStuff;
+        update();
+    }
 
-var old = '';
-         
-function init()
-{
-  window.editbox.document.write(editboxHTML);
-  window.editbox.document.close();
-  window.editbox.document.f.ta.value = defaultStuff;
-  update();
-}
+    function update() {
+        var textarea = window.editbox.document.f.ta;
+        var d = dynamicframe.document;
 
-function update()
-{
-  var textarea = window.editbox.document.f.ta;
-  var d = dynamicframe.document; 
+        if (old != textarea.value) {
+            old = textarea.value;
+            d.open();
+            d.write(old);
+            if (old.replace(/[\r\n]/g, '') == defaultStuff.replace(/[\r\n]/g, ''))
+                d.write(extraStuff);
+            d.close();
+        }
 
-  if (old != textarea.value) {
-    old = textarea.value;
-    d.open();
-    d.write(old);
-    if (old.replace(/[\r\n]/g,'') == defaultStuff.replace(/[\r\n]/g,''))
-      d.write(extraStuff);
-    d.close();
-  }
-
-  window.setTimeout(update, 150);
-}
-
-</script>
-
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KX5WC3P');</script>
-
+        window.setTimeout(update, 150);
+    }
+    </script>
+    <script>
+    (function(w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start': new Date().getTime(),
+            event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-KX5WC3P');
+    </script>
 </head>
-
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KX5WC3P"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
-    
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KX5WC3P" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <frameset resizable="yes" rows="50%,*" onload="init();">
-  <!-- about:blank confuses opera, so use javascript: URLs instead -->
-  <frame name="editbox" src="javascript:'';">
-  <frame name="dynamicframe" src="javascript:'';">
+    <!-- about:blank confuses opera, so use javascript: URLs instead -->
+    <frame name="editbox" src="javascript:'';">
+        <frame name="dynamicframe" src="javascript:'';">
 </frameset>
 
 </html>
